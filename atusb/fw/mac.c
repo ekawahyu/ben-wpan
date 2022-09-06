@@ -32,7 +32,7 @@ static uint8_t tx_buf[MAX_PSDU];
 static uint8_t tx_size = 0;
 static bool txing = 0;
 static bool queued_tx_ack = 0;
-static uint8_t next_seq, this_seq, queued_seq;
+static uint8_t next_seq, this_seq, this_data[2], queued_data[2];
 
 
 /* ----- Receive buffer management ----------------------------------------- */
@@ -65,7 +65,8 @@ static void usb_next(void)
 	}
 
 	if (queued_tx_ack) {
-		usb_send(&eps[1], &queued_seq, 1, tx_ack_done, NULL);
+		usb_send(&eps[1], queued_data, sizeof(queued_data),
+			 tx_ack_done, NULL);
 		queued_tx_ack = 0;	
 	}
 }
@@ -124,11 +125,17 @@ static bool handle_irq(void)
 
 	if (txing) {
 		if (eps[1].state == EP_IDLE) {
-			usb_send(&eps[1], &this_seq, 1, tx_ack_done, NULL);
+			this_data[0] = this_seq;
+			this_data[1] = reg_read(REG_TRX_STATE);
+			usb_send(&eps[1], this_data, sizeof(this_data),
+				 tx_ack_done, NULL);
 		} else {
 			queued_tx_ack = 1;
-			queued_seq = this_seq;
+			queued_data[0] = this_seq;
+			queued_data[1] = reg_read(REG_TRX_STATE);
 		}
+		change_state(TRX_CMD_PLL_ON);
+		change_state(TRX_CMD_RX_AACK_ON);
 		txing = 0;
 		return 1;
 	}
@@ -215,13 +222,6 @@ static void do_tx(void *user)
 
 	txing = 1;
 	this_seq = next_seq;
-
-	/*
-	 * Wait until we reach BUSY_TX_ARET, so that we command the transition to
-	 * RX_AACK_ON which will be executed upon TX completion.
-	 */
-	change_state(TRX_CMD_PLL_ON);
-	change_state(TRX_CMD_RX_AACK_ON);
 }
 
 
@@ -242,7 +242,7 @@ void mac_reset(void)
 	txing = 0;
 	queued_tx_ack = 0;
 	rx_in = rx_out = 0;
-	next_seq = this_seq = queued_seq = 0;
+	next_seq = this_seq = queued_data[0], queued_data[1] = 0;
 
 	/* enable CRC and PHY_RSSI (with RX_CRC_VALID) in SPI status return */
 	reg_write(REG_TRX_CTRL_1,
