@@ -1,4 +1,6 @@
-Requires a very recent toolchain, because ATmega32U2 is relatively new.
+- Toolchain:
+
+  apt install gcc-avr avr-libc binutils-avr
 
 - Building:
 
@@ -64,12 +66,13 @@ apt-get install libmpfr-dev libmpc-dev
 
 # binutils
 
-wget http://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2
-tar xfj binutils-2.21.tar.bz2 
-cd binutils-2.21
-./configure --target=avr --disable-nls
+wget https://ftp.gnu.org/gnu/binutils/binutils-2.27.tar.bz2
+tar xfj binutils-2.27.tar.bz2
+cd binutils-2.27
+./configure --target=avr --disable-nls --disable-werror
 make
 make install
+ln -s /usr/local/bin/avr-as /usr/bin/avr-as
 
 # gcc
 
@@ -85,9 +88,8 @@ cd obj-avr
 make
 make install
 
-wget http://download.savannah.gnu.org/releases/avr-libc/avr-libc-1.7.1.tar.bz2
-tar xfj avr-libc-1.7.1.tar.bz2 
-cd avr-libc-1.7.1
+wget https://android.googlesource.com/toolchain/avr-libc/+archive/master/avr-libc-1.7.1.tar.gz
+tar xf avr-libc-1.7.1.tar.gz
 ./bootstrap	# the automake at the end takes a while
 ./configure --build=`./config.guess` --host=avr
 make
