@@ -1,0 +1,7 @@
+*.d
+*.bin
+*.elf
+*.dfu
+*.hex
+.version
+version.c
