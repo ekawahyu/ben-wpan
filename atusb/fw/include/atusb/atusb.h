@@ -56,6 +56,7 @@ enum {
 	ATUSB_HW_TYPE_110131,	/* 2011-01-31, ATmega32U2-based */
 	ATUSB_HW_TYPE_RZUSB,	/* Atmel Raven USB dongle with at86rf230 */
 	ATUSB_HW_TYPE_HULUSB,	/* Busware HUL USB dongle with at86rf212 */
+	ATUSB_HW_TYPE_EKAUSB,	/* ATMEGA32U2 + AT86RF212 */
 };
 
 /*

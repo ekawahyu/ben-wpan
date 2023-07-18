@@ -154,7 +154,7 @@ static void done(void *user)
 
 uint8_t irq_serial;
 
-#if defined(ATUSB) || defined(HULUSB)
+#if defined(ATUSB) || defined(HULUSB) || defined(EKAUSB)
 ISR(INT0_vect)
 #endif
 #ifdef RZUSB
