@@ -173,8 +173,7 @@ void usb_init(void)
 	USBCON |= 1 << FRZCLK;		/* freeze the clock */
 
 	/* enable the PLL and wait for it to lock */
-	PLLCSR &= ~(1 << PLLP2 | 1 << PLLP1 | 1 << PLLP0);
-	PLLCSR |= 1 << PLLE;
+	PLLCSR = (1<<PLLE)|(1<<PLLP0);
 	while (!(PLLCSR & (1 << PLOCK)));
 
 	USBCON &= ~(1 << USBE);		/* reset the controller */
