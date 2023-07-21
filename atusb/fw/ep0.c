@@ -50,7 +50,7 @@
 #endif
 
 #ifdef EKAUSB
-#define HW_TYPE		ATUSB_HW_TYPE_EKAUSB
+#define HW_TYPE		ATUSB_HW_TYPE_110131
 #endif
 
 #ifdef DEBUG
