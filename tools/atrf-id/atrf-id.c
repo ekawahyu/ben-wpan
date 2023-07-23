@@ -92,11 +92,12 @@ static void show_usb_info(struct atrf_dsc *dsc)
 	if (get_protocol(dev, &major, &minor, &target) < 0)
 		exit(1);
 	switch (target) {
-	case HW_TYPE_100813:
-	case HW_TYPE_101216:
+	case ATUSB_HW_TYPE_100813:
+	case ATUSB_HW_TYPE_101216:
 		mcu = "C8051F326";
 		break;
-	case HW_TYPE_110131:
+	case ATUSB_HW_TYPE_110131:
+	case ATUSB_HW_TYPE_EKAUSB:
 		mcu = "ATmega32U2";
 		break;
 	default:
@@ -140,6 +141,9 @@ static void show_info(struct atrf_dsc *dsc)
 		break;
 	case atrf_at86rf231:
 		printf("AT86RF231");
+		break;
+		case atrf_at86rf212:
+		printf("AT86RF212");
 		break;
 	default:
 		abort();

@@ -259,10 +259,10 @@ int atusb_set_clkm(void *handle, int mhz)
 		return 0;
 	}
 	switch (ids[2]) {
-	case HW_TYPE_100813:
-	case HW_TYPE_101216:
+	case ATUSB_HW_TYPE_100813:
+	case ATUSB_HW_TYPE_101216:
 		break;
-	case HW_TYPE_110131:
+	case ATUSB_HW_TYPE_110131:
 		if (mhz == 0 || mhz == 8)
 			return 1;
 		fprintf(stderr, "this board only supports CLKM = 8 MHz\n");

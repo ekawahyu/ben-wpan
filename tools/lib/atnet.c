@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <unistd.h>
 
 #include "netio.h"
 
@@ -298,7 +299,7 @@ static uint8_t atnet_reg_read(void *handle, uint8_t reg)
 	char *end;
 
 	if (dsc->error)
-		return;
+		return 0;
 	if (dialog(dsc, "GET 0x%02x", reg) < 0) {
 		dsc->error = 1;
 		return 0;
@@ -423,7 +424,7 @@ static uint8_t atnet_sram_read(void *handle, uint8_t addr)
 	char *end;
 
 	if (dsc->error)
-		return;
+		return 0;
 	if (dialog(dsc, "GETRAM 0x%02x", addr) < 0) {
 		dsc->error = 1;
 		return 0;

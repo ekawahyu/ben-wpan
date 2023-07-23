@@ -20,6 +20,7 @@ enum atrf_chip_id {
 	atrf_unknown_chip	= 0,
 	atrf_at86rf230		= 1,
 	atrf_at86rf231		= 2,
+	atrf_at86rf212		= 7,
 };
 
 
