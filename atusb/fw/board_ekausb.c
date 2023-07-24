@@ -159,12 +159,12 @@ void spi_init(void)
 	OUT(nSS);
 	IN(MISO);
 
-	UBRR1 = 0;	/* set bit rate to zero to begin */
+	UBRR1 = 1;	/* set bit rate to zero to begin */
 	UCSR1C = 1 << UMSEL11 | 1 << UMSEL10;
 			/* set MSPI, MSB first, SPI data mode 0 */
 	UCSR1B = 1 << RXEN1 | 1 << TXEN1;
 			/* enable receiver and transmitter */
-	UBRR1 = 0;	/* reconfirm the bit rate */
+	UBRR1 = 1;	/* reconfirm the bit rate */
 
 	spi_initialized = 1;
 }
