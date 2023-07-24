@@ -69,6 +69,7 @@ void reset_rf(void)
 	// reg = reg_read(REG_PART_NUM);
 
 	reg_write(REG_TRX_CTRL_0, 0x19);
+	reg_write(REG_IRQ_MASK, 0xFF);
 
 	change_state(TRX_CMD_FORCE_TRX_OFF);
 	/*-----------------------------------------------------------------*/

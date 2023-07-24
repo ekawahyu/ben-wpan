@@ -32,7 +32,7 @@
  */
 
 #define EP0ATUSB_MAJOR	0	/* EP0 protocol, major revision */
-#define EP0ATUSB_MINOR	4	/* EP0 protocol, minor revision */
+#define EP0ATUSB_MINOR	3	/* EP0 protocol, minor revision */
 
 
 /*

@@ -22,11 +22,11 @@ CC_host = gcc
 CC_ben_jlime = mipsel-linux-gcc
 CC_ben_openwrt = mipsel-openwrt-linux-gcc
 
-CFLAGS_host = -I/opt/homebrew/Cellar/libusb-compat/0.1.8/include
+CFLAGS_host =
 CFLAGS_ben_jlime =
 CFLAGS_ben_openwrt =
 
-LDLIBS_host = -L/opt/homebrew/Cellar/libusb-compat/0.1.8/lib -lusb
+LDLIBS_host = -lusb
 LDLIBS_ben_jlime =
 LDLIBS_ben_openwrt =
 
