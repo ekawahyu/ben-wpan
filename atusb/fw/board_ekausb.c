@@ -69,6 +69,7 @@ void reset_rf(void)
 	// reg = reg_read(REG_PART_NUM);
 
 	reg_write(REG_TRX_CTRL_0, 0x19);
+	reg_write(REG_IRQ_MASK, 0xFF);
 
 	change_state(TRX_CMD_FORCE_TRX_OFF);
 	/*-----------------------------------------------------------------*/
@@ -158,12 +159,12 @@ void spi_init(void)
 	OUT(nSS);
 	IN(MISO);
 
-	UBRR1 = 0;	/* set bit rate to zero to begin */
+	UBRR1 = 1;	/* set bit rate to zero to begin */
 	UCSR1C = 1 << UMSEL11 | 1 << UMSEL10;
 			/* set MSPI, MSB first, SPI data mode 0 */
 	UCSR1B = 1 << RXEN1 | 1 << TXEN1;
 			/* enable receiver and transmitter */
-	UBRR1 = 0;	/* reconfirm the bit rate */
+	UBRR1 = 1;	/* reconfirm the bit rate */
 
 	spi_initialized = 1;
 }
