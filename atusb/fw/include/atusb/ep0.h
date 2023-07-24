@@ -27,6 +27,8 @@
  * 	Support to run the firmware on Atmel Raven USB dongles
  * 	Remove FCS frame check from firmware and leave it to the driver
  * 	Use extended operation mode for TX for automatic ACK handling
+ * 0.4	Support for a new board named HULUSB, Busware HUL v1.1 dongle
+ *	Provide TRAC status back to USB
  */
 
 #define EP0ATUSB_MAJOR	0	/* EP0 protocol, major revision */

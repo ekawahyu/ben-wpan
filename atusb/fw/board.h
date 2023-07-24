@@ -27,6 +27,9 @@
 #ifdef HULUSB
 #include "board_hulusb.h"
 #endif
+#ifdef EKAUSB
+#include "board_ekausb.h"
+#endif
 
 #define	SET_2(p, b)	PORT##p |= 1 << (b)
 #define	CLR_2(p, b)	PORT##p &= ~(1 << (b))

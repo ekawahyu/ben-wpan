@@ -48,7 +48,7 @@ int main(void)
 
 	usb_init();
 	ep0_init();
-#ifdef ATUSB
+#if defined(ATUSB) || defined(EKAUSB)
 	timer_init();
 
 	/* move interrupt vectors to 0 */

@@ -19,6 +19,13 @@ CFLAGS = -g -mmcu=$(CHIP) -DBOOT_ADDR=$(BOOT_ADDR) \
 	 -Wall -Wextra -Wshadow -Werror -Wno-unused-parameter \
 	 -Wmissing-prototypes -Wmissing-declarations -Wstrict-prototypes
 
+# If you are using avr-gcc > 12.0 and run into the following error:
+# board.h:32:33: error: array subscript 0 is outside array bounds of 'volatile uint8_t[0]'
+# add --param=min-pagesize=0 to the CFLAGS above. Its a bug in GCC that does
+# needs us to explicitely tell that we run a firmware and have code starting at
+# address 0.
+# https://gcc.gnu.org/bugzilla//show_bug.cgi?id=105523
+
 ifeq ($(DEBUG),true)
 CFLAGS += -DDEBUG
 endif
@@ -29,6 +36,9 @@ CFLAGS += -DRZUSB -DAT86RF230
 else ifeq ($(NAME),hulusb)
 CHIP=at90usb1287
 CFLAGS += -DHULUSB -DAT86RF212
+else ifeq ($(NAME),ekausb)
+CHIP=atmega32u2
+CFLAGS += -DEKAUSB -DAT86RF212
 else
 CHIP=atmega32u2
 CFLAGS += -DATUSB -DAT86RF231
@@ -64,6 +74,9 @@ BOOT_OBJS += board_rzusb.o
 else ifeq ($(NAME),hulusb)
 OBJS += board_hulusb.o
 BOOT_OBJS += board_hulusb.o
+else ifeq ($(NAME),ekausb)
+OBJS += board_ekausb.o
+BOOT_OBJS += board_ekausb.o
 else
 OBJS += board_atusb.o
 BOOT_OBJS += board_atusb.o
