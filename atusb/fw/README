@@ -54,12 +54,35 @@ dfu-programmer at90usb1287 reset
 
 --------------------------
 
-EkaSusilo notes:
-----------------
-To prepare and flash the firmware on a ATMEGA32u2 + AT86RF212 device:
+EKAUSB notes:
+-------------
+1. Prepare the bootloader once, and then use dfu-util to flash application.
+   It requires to have AVRISP to flash the bootloader once, and then dfu-util
+   can be used to update firmware on device boot.
 
+2. No bootloader, direct flashing application with dfu-programmer.
+   It requires to have RESET and HWB push buttons to enter DFU mode.
+
+Build bootloader and application:
+---------------------------------
 make clean
 make NAME=ekausb
+
+Flashing bootloader ONCE (skip this if you choose no bootloader):
+-----------------------------------------------------------------
+avrdude -F -p m32u2 -c ft232h -U flash:w:boot.hex:i -U hfuse:w:0xd8:m -U lock:w:0xef:m
+
+Confirm lfuse, hfuse, and lock (0x5E, 0xD8, 0xEF):
+avrdude -F -p m32u2 -c ft232h -U lfuse:r:-:i -U hfuse:r:-:i -U lock:r:-:i
+
+Flashing application firmware (skip this if you choose no bootloader):
+----------------------------------------------------------------------
+cp ekausb.bin ekausb.dfu
+dfu-suffix -a ekausb.dfu -d 0x0030 -p 0x1540 -v 0x20b7
+dfu-util -d 20b7:1540 -D ekausb.dfu
+
+Direct flashing without bootloader:
+-----------------------------------
 avr-objcopy -O ihex -R .signature -R .fuse -R .eeprom ekausb.elf ekausb.hex
 dfu-programmer atmega32u2 erase
 dfu-programmer atmega32u2 flash ekausb.hex
