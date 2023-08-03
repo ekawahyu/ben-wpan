@@ -54,7 +54,7 @@ SIZE = $(AVR_PREFIX)size
 
 # BCD notion is 0xJJMM with JJ being major and MM being minor. Thus 0x0020 is
 # version 0.2 */
-USB_BCD_VERSION = 0030
+USB_BCD_VERSION = 0040
 USB_VENDOR_ID = 20b7
 USB_PRODUCT_ID = 1540
 USB_ID = $(USB_VENDOR_ID):$(USB_PRODUCT_ID)
