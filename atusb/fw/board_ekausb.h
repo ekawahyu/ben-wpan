@@ -18,13 +18,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define LED_RED_PORT        D
-#define LED_RED_BIT         6
+#define LED_RED_PORT        B
+#define LED_RED_BIT         0
 #define LED_PORT            LED_RED_PORT
 #define LED_BIT             LED_RED_BIT
 
 #define	nRST_RF_PORT        C
-#define	nRST_RF_BIT         7
+#define	nRST_RF_BIT         6
 #define	SLP_TR_PORT         B
 #define	SLP_TR_BIT          4
 
